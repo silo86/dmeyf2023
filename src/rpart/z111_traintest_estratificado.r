@@ -7,7 +7,7 @@ require("rpart")
 PARAM <- list()
 
 # reemplazar por SU semilla
-PARAM$semilla <- 102191
+PARAM$semilla <- 100019
 
 #------------------------------------------------------------------------------
 # particionar agrega una columna llamada fold a un dataset
@@ -35,10 +35,11 @@ particionar <- function(
 
 # Aqui se debe poner la carpeta de la computadora local
 # Establezco el Working Directory
-setwd("X:\\gdrive\\uba2023\\")
+#cwd = getwd()
+#setwd("/Users/andres/Desktop/master/DM_EyF/datasets/")
 
 # cargo los datos
-dataset <- fread("./datasets/competencia_01.csv")
+dataset <- fread("/Users/andres/Desktop/master/DM_EyF/datasets/competencia_01.csv")
 
 # trabajo solo con los datos con clase, es decir 202103
 dataset <- dataset[ foto_mes==202103 ]

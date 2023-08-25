@@ -7,7 +7,8 @@ require("rpart")
 require("rpart.plot")
 
 # Aqui se debe poner la carpeta de la materia de SU computadora local
-setwd("X:\\gdrive\\uba2023\\") # Establezco el Working Directory
+#setwd("X:\\gdrive\\uba2023\\") # Establezco el Working Directory
+setwd("/Users/andres/Desktop/master/DM_EyF") # Establezco el Working Directory
 
 # cargo el dataset
 dataset <- fread("./datasets/competencia_01.csv")
@@ -18,7 +19,7 @@ dapply <- dataset[foto_mes == 202105] # defino donde voy a aplicar el modelo
 # genero el modelo,  aqui se construye el arbol
 # quiero predecir clase_ternaria a partir de el resto de las variables
 modelo <- rpart(
-        formula = "clase_ternaria ~ .",
+        formula = "ternario ~ .",
         data = dtrain, # los datos donde voy a entrenar
         xval = 0,
         cp = -0.3, # esto significa no limitar la complejidad de los splits
@@ -47,7 +48,7 @@ prediccion <- predict(
 # cada columna es el vector de probabilidades
 
 # agrego a dapply una columna nueva que es la probabilidad de BAJA+2
-dapply[, prob_baja2 := prediccion[, "BAJA+2"]]
+dapply[, prob_baja2 := prediccion[, "baja_2"]]
 
 # solo le envio estimulo a los registros
 #  con probabilidad de BAJA+2 mayor  a  1/40
