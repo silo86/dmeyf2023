@@ -78,7 +78,7 @@ ArbolEstimarGanancia <- function(semilla, param_basicos) {
 #------------------------------------------------------------------------------
 
 # Aqui se debe poner la carpeta de la computadora local
-setwd("X:\\gdrive\\uba2023\\") # Establezco el Working Directory
+setwd("/Users/andres/Desktop/master/DM_EyF") # Establezco el Working Directory
 
 # cargo los datos
 dataset <- fread("./datasets/competencia_01.csv")
@@ -104,7 +104,7 @@ salidas <- mcmapply(ArbolEstimarGanancia,
   PARAM$semillas, # paso el vector de semillas
   MoreArgs = list(param_basicos), # aqui paso el segundo parametro
   SIMPLIFY = FALSE,
-  mc.cores = 1
+  mc.cores = 5
 ) # se puede subir a 5 si posee Linux o Mac OS
 
 # muestro la lista de las salidas en testing
@@ -121,5 +121,5 @@ tb_salida[, mean(ganancia_test)]
 
 # calculo todos los promedios
 tb_salida[, lapply(.SD, mean)]
-
+print(tb_salida[, lapply(.SD, mean)])
 # desvio estandar Distribucion Binomial   sqrt( n * p * (1-p) )

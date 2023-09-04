@@ -19,7 +19,7 @@ dapply <- dataset[foto_mes == 202105] # defino donde voy a aplicar el modelo
 # genero el modelo,  aqui se construye el arbol
 # quiero predecir clase_ternaria a partir de el resto de las variables
 modelo <- rpart(
-        formula = "ternario ~ .",
+        formula = "clase_ternaria ~ .",
         data = dtrain, # los datos donde voy a entrenar
         xval = 0,
         cp = -0.3, # esto significa no limitar la complejidad de los splits
@@ -38,7 +38,7 @@ prp(modelo,
 
 # aplico el modelo a los datos nuevos
 prediccion <- predict(
-        object = modelo,
+        object = modelo,https://file+.vscode-resource.vscode-cdn.net/var/folders/dm/spzgmw6918s0yp7cypbxvynw0000gn/T/Rtmpb7Fcgi/vscode-R/plot.png?version%3D1693502765448
         newdata = dapply,
         type = "prob"
 )
@@ -48,7 +48,7 @@ prediccion <- predict(
 # cada columna es el vector de probabilidades
 
 # agrego a dapply una columna nueva que es la probabilidad de BAJA+2
-dapply[, prob_baja2 := prediccion[, "baja_2"]]
+dapply[, prob_baja2 := prediccion[, "BAJA+2"]]
 
 # solo le envio estimulo a los registros
 #  con probabilidad de BAJA+2 mayor  a  1/40

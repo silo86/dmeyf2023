@@ -27,8 +27,7 @@ PARAM$experimento <- "HT3220"
 # Aqui van las 10 semillas que hacen el 10-repeated
 #  si se pone una sola semilla, se esta haciendo solo 5-fold xval
 PARAM$semilla_azar <- c(
-  102191, 200177, 410551, 552581, 892237,
-  753587, 247759, 253369, 955127, 800519
+  102191
 )
 
 # folds del cross validation
@@ -204,7 +203,7 @@ EstimarGanancia <- function(x) {
 # Aqui empieza el programa
 
 # Establezco el Working Directory inicial
-setwd(PARAM$home)
+setwd('/Users/andres/Desktop/master/DM_EyF')
 
 # cargo los datos
 dataset <- fread("./datasets/competencia_01.csv")
