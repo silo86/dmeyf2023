@@ -5,9 +5,9 @@ gc()             #garbage collection
 require("data.table")
 require("rpart")
 
-setwd("." )  #establezco la carpeta donde voy a trabajar
+setwd("/Users/andres/Desktop/master/DM_EyF")  #establezco la carpeta donde voy a trabajar
 #cargo el dataset
-dataset  <- fread( "./competencia_01.csv", na.strings="")
+dataset  <- fread( "./datasets/competencia_01.csv", na.strings="")
 
 dataset[ foto_mes == 202103 ,
 				clase_binaria:= ifelse( clase_ternaria=="BAJA+2", "POS","NEG" ) ]

@@ -11,7 +11,7 @@ require("parallel")
 
 PARAM <- list()
 # reemplazar por las propias semillas
-PARAM$semillas <- c(102191, 200177, 410551, 552581, 892237)
+PARAM$semillas <- c(100019,100043,100049,100057,100069)
 
 #------------------------------------------------------------------------------
 # particionar agrega una columna llamada fold a un dataset
@@ -78,7 +78,7 @@ ArbolesMontecarlo <- function(semillas, param_basicos) {
     semillas, # paso el vector de semillas
     MoreArgs = list(param_basicos), # aqui paso el segundo parametro
     SIMPLIFY = FALSE,
-    mc.cores = 1
+    mc.cores = 5
   ) # se puede subir a 5 si posee Linux o Mac OS
 
   ganancia_promedio <- mean(unlist(ganancias))
@@ -89,11 +89,11 @@ ArbolesMontecarlo <- function(semillas, param_basicos) {
 #------------------------------------------------------------------------------
 
 # Aqui se debe poner la carpeta de la computadora local
-setwd("~/buckets/b1/") # Establezco el Working Directory
+setwd("/Users/andres/Desktop/master/DM_EyF") # Establezco el Working Directory
 # cargo los datos
 
 # cargo los datos
-dataset <- fread("./datasets/dataset_pequeno.csv")
+dataset <- fread("./datasets/competencia_01.csv")
 
 # trabajo solo con los datos con clase, es decir 202107
 dataset <- dataset[clase_ternaria != ""]
@@ -133,7 +133,7 @@ for (vmax_depth in c(4, 6, 8, 10, 12, 14)) {
     ) # profundidad máxima del arbol
 
     # Un solo llamado, con la semilla 17
-    ganancia_promedio <- ArbolesMontecarlo(ksemillas, param_basicos)
+    ganancia_promedio <- ArbolesMontecarlo(PARAM$semillas, param_basicos)
 
     # escribo los resultados al archivo de salida
     cat(

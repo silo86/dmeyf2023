@@ -1,3 +1,4 @@
+# seeds: 100019,100043,100049,100057,100069
 # Arbol elemental con libreria  rpart
 # Debe tener instaladas las librerias  data.table  ,  rpart  y  rpart.plot
 
@@ -7,27 +8,31 @@ require("rpart")
 require("rpart.plot")
 
 # Aqui se debe poner la carpeta de la materia de SU computadora local
-#setwd("X:\\gdrive\\uba2023\\") # Establezco el Working Directory
-setwd("/Users/andres/Desktop/master/DM_EyF") # Establezco el Working Directory
+setwd("/Users/andres/Desktop/master/DM_EyF")  # Establezco el Working Directory
 
 # cargo el dataset
 dataset <- fread("./datasets/competencia_01.csv")
 
 dtrain <- dataset[foto_mes == 202103] # defino donde voy a entrenar
 dapply <- dataset[foto_mes == 202105] # defino donde voy a aplicar el modelo
-
 # genero el modelo,  aqui se construye el arbol
 # quiero predecir clase_ternaria a partir de el resto de las variables
 modelo <- rpart(
         formula = "clase_ternaria ~ .",
         data = dtrain, # los datos donde voy a entrenar
         xval = 0,
-        cp = -0.3, # esto significa no limitar la complejidad de los splits
-        minsplit = 0, # minima cantidad de registros para que se haga el split
-        minbucket = 1, # tamaño minimo de una hoja
-        maxdepth = 3
+        cp = -0.21573462072328,#-1, # esto significa no limitar la complejidad de los splits
+        minsplit = 212,#900, # minima cantidad de registros para que se haga el split
+        minbucket = 184,#440, # tamaño minimo de una hoja
+        maxdepth = 7
 ) # profundidad maxima del arbol
 
+# param_basicos <- list(
+#   "cp" = -1, # complejidad minima
+#   "minsplit" = 900, # minima cant de registros en un nodo para hacer el split
+#   "minbucket" = 440, # minima cantidad de registros en una hoja
+#   "maxdepth" = 5
+# ) 
 
 # grafico el arbol
 prp(modelo,
@@ -38,11 +43,12 @@ prp(modelo,
 
 # aplico el modelo a los datos nuevos
 prediccion <- predict(
-        object = modelo,https://file+.vscode-resource.vscode-cdn.net/var/folders/dm/spzgmw6918s0yp7cypbxvynw0000gn/T/Rtmpb7Fcgi/vscode-R/plot.png?version%3D1693502765448
+        object = modelo,
         newdata = dapply,
         type = "prob"
 )
-
+print("Prediccion: ")
+print(prediccion)
 # prediccion es una matriz con TRES columnas,
 # llamadas "BAJA+1", "BAJA+2"  y "CONTINUA"
 # cada columna es el vector de probabilidades

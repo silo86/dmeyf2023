@@ -27,7 +27,7 @@ PARAM$experimento <- "HT3220"
 # Aqui van las 10 semillas que hacen el 10-repeated
 #  si se pone una sola semilla, se esta haciendo solo 5-fold xval
 PARAM$semilla_azar <- c(
-  102191
+  100019
 )
 
 # folds del cross validation

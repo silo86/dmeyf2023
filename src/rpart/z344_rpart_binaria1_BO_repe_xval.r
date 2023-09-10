@@ -205,7 +205,7 @@ EstimarGanancia <- function(x) {
 # Aqui empieza el programa
 
 # Establezco el Working Directory inicial
-setwd(PARAM$home)
+setwd("/Users/andres/Desktop/master/DM_EyF")
 
 # cargo los datos
 dataset <- fread("./datasets/competencia_01.csv")
