@@ -28,7 +28,7 @@ PARAM$prob_corte <-  -1
 
 # poner -1 si se quiere cortar por probabilidad
 #  un numero mayor o igual a cero indica que se corta por cant envios
-PARAM$corte <- 10000
+PARAM$corte <- 9500
 
 # estos valores son simplemente de ejemplo
 PARAM$rpart$cp <- -1
@@ -41,8 +41,8 @@ PARAM$rpart$maxdepth <- 6
 
 
 # Aqui se debe poner la carpeta de la materia de SU computadora local
-setwd("~/buckets/b1/") # Establezco el Working Directory
-
+#setwd("~/buckets/b1/") # Establezco el Working Directory
+setwd('/Users/andres/Desktop/master/DM_EyF')
 
 if( PARAM$prob_corte <= 0 & PARAM$corte <= 0 ) stop("debe elegir al menos una opcion de corte" )
 if( PARAM$prob_corte > 0 & PARAM$corte > 0 ) stop("No puede elegir dos opcinoes de corte al mismo tiempo" )
