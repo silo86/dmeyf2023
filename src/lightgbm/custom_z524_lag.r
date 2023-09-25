@@ -38,8 +38,8 @@ PARAM$finalmodel$max_bin <- 31
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
 # Aqui empieza el programa
-setwd("~/buckets/b1")
-#setwd("/Users/andres/Desktop/master/DM_EyF")
+#setwd("~/buckets/b1")
+setwd("/Users/andres/Desktop/master/DM_EyF")
 
 # cargo el dataset donde voy a entrenar
 
@@ -59,11 +59,15 @@ dataset <- dataset %>%
 #--------------------------------------
 
 #--------------------------------------
-
+dataset <- as.data.table(dataset) # convert to data table
 # paso la clase a binaria que tome valores {0,1}  enteros
 # set trabaja con la clase  POS = { BAJA+1, BAJA+2 }
 # esta estrategia es MUY importante
 dataset[, clase01 := ifelse(clase_ternaria %in% c("BAJA+2", "BAJA+1"), 1L, 0L)]
+
+
+#Error in `:=`(clase01, ifelse(clase_ternaria %in% c("BAJA+2", "BAJA+1"),  : 
+#                                Check that is.data.table(DT) == TRUE. Otherwise, := and `:=`(...) are defined for use in j, once only and in particular ways. See help(":=").
 
 #--------------------------------------
 
