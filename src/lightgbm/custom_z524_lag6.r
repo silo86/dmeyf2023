@@ -74,50 +74,56 @@ for (campo in campos_buenos) {
 # Define the columns to calculate lags for
 lagged_columns <- colnames(dataset)[!(colnames(dataset) %in% c("numero_de_cliente", "foto_mes", "clase_ternaria"))]
 
-# Create lagged columns for each column in the lagged_columns vector
 dataset <- dataset %>%
   arrange(numero_de_cliente, foto_mes) %>%
   group_by(numero_de_cliente) %>%
-  mutate(across(all_of(lagged_columns), lag, .names = "lag_{.col}"))
-#--------------------------------------
+  mutate(across(all_of(lagged_columns),
+  list(Lag1 = ~lag(.x, 1), Lag2 = ~lag(.x, 2), Lag3 = ~lag(.x, 3)), .names="lagged_{.col}_Lag{.fn}")) # nolint
 
-#--------------------------------------
-##### Multiple lags
-#--------------------------------------
+# # Create lagged columns for each column in the lagged_columns vector
+# dataset <- dataset %>%
+#   arrange(numero_de_cliente, foto_mes) %>%
+#   group_by(numero_de_cliente) %>%
+#   mutate(across(all_of(lagged_columns), lag, .names = "lag_{.col}"))
+# #--------------------------------------
 
-# Add lag-2 columns to the lagged_columns
-dataset <- dataset %>%
-  arrange(numero_de_cliente, foto_mes) %>%
-  group_by(numero_de_cliente) %>%
-  mutate(across(all_of(lagged_columns), lag, .names = "lag2_{.col}", .lag = 2))
-#--------------------------------------
+# #--------------------------------------
+# ##### Multiple lags
+# #--------------------------------------
 
-# Add lag-3 columns to the lagged_columns
-dataset <- dataset %>%
-  arrange(numero_de_cliente, foto_mes) %>%
-  group_by(numero_de_cliente) %>%
-  mutate(across(all_of(lagged_columns), lag, .names = "lag3_{.col}", .lag = 3))
-#--------------------------------------
+# # Add lag-2 columns to the lagged_columns
+# dataset <- dataset %>%
+#   arrange(numero_de_cliente, foto_mes) %>%
+#   group_by(numero_de_cliente) %>%
+#   mutate(across(all_of(lagged_columns), lag, .names = "lag2_{.col}", .lag = 2))
+# #--------------------------------------
 
-# Add lag-4 columns to the lagged_columns
-dataset <- dataset %>%
-  arrange(numero_de_cliente, foto_mes) %>%
-  group_by(numero_de_cliente) %>%
-  mutate(across(all_of(lagged_columns), lag, .names = "lag4_{.col}", .lag = 4))
-#--------------------------------------
+# # Add lag-3 columns to the lagged_columns
+# dataset <- dataset %>%
+#   arrange(numero_de_cliente, foto_mes) %>%
+#   group_by(numero_de_cliente) %>%
+#   mutate(across(all_of(lagged_columns), lag, .names = "lag3_{.col}", .lag = 3))
+# #--------------------------------------
 
-# Add lag-5 columns to the lagged_columns
-dataset <- dataset %>%
-  arrange(numero_de_cliente, foto_mes) %>%
-  group_by(numero_de_cliente) %>%
-  mutate(across(all_of(lagged_columns), lag, .names = "lag5_{.col}", .lag = 5))
+# # Add lag-4 columns to the lagged_columns
+# dataset <- dataset %>%
+#   arrange(numero_de_cliente, foto_mes) %>%
+#   group_by(numero_de_cliente) %>%
+#   mutate(across(all_of(lagged_columns), lag, .names = "lag4_{.col}", .lag = 4))
+# #--------------------------------------
 
-# Add lag-6 columns to the lagged_columns
-dataset <- dataset %>%
-  arrange(numero_de_cliente, foto_mes) %>%
-  group_by(numero_de_cliente) %>%
-  mutate(across(all_of(lagged_columns), lag, .names = "lag6_{.col}", .lag = 6))
-#--------------------------------------
+# # Add lag-5 columns to the lagged_columns
+# dataset <- dataset %>%
+#   arrange(numero_de_cliente, foto_mes) %>%
+#   group_by(numero_de_cliente) %>%
+#   mutate(across(all_of(lagged_columns), lag, .names = "lag5_{.col}", .lag = 5))
+
+# # Add lag-6 columns to the lagged_columns
+# dataset <- dataset %>%
+#   arrange(numero_de_cliente, foto_mes) %>%
+#   group_by(numero_de_cliente) %>%
+#   mutate(across(all_of(lagged_columns), lag, .names = "lag6_{.col}", .lag = 6))
+# #--------------------------------------
 
 
 #--------------------------------------
