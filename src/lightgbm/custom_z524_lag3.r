@@ -16,7 +16,7 @@ library(dplyr)
 # defino los parametros de la corrida, en una lista, la variable global  PARAM
 #  muy pronto esto se leera desde un archivo formato .yaml
 PARAM <- list()
-PARAM$experimento <- "custom_KA5240_lag_seis"
+PARAM$experimento <- "custom_KA5240_lag6"
 
 PARAM$input$dataset <- "./datasets/competencia_02.csv.gz"
 
@@ -78,7 +78,7 @@ dataset <- dataset %>%
   arrange(numero_de_cliente, foto_mes) %>%
   group_by(numero_de_cliente) %>%
   mutate(across(all_of(lagged_columns),
-  list(Lag1 = ~lag(.x, 1), Lag2 = ~lag(.x, 2), Lag3 = ~lag(.x, 3), Lag4 = ~lag(.x, 4), Lag5 = ~lag(.x, 5), Lag6 = ~lag(.x, 6)), .names="lagged_{.col}_Lag{.fn}")) # nolint
+  list(Lag1 = ~lag(.x, 1), Lag2 = ~lag(.x, 2), Lag3 = ~lag(.x, 3)), .names="lagged_{.col}_Lag{.fn}")) # nolint
 
 # # Create lagged columns for each column in the lagged_columns vector
 # dataset <- dataset %>%
