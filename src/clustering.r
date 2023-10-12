@@ -10,7 +10,6 @@ rm(list = ls()) # remove all objects
 gc() # garbage collection
 
 #install.packages("mice")
-library(mice)
 require("data.table")
 require("lightgbm")
 library(dplyr)
@@ -41,8 +40,8 @@ PARAM$finalmodel$max_bin <- 31
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
 # Aqui empieza el programa
-#setwd("~/buckets/b1")
-setwd("/Users/andres/Desktop/master/DM_EyF")
+setwd("~/buckets/b1")
+#setwd("/Users/andres/Desktop/master/DM_EyF")
 
 # cargo el dataset donde voy a entrenar
 
@@ -52,37 +51,38 @@ subset <- subset[!duplicated(subset$numero_de_cliente), ]
 
 
 # Identify numeric columns
-#numeric_columns <- names(subset)[sapply(subset, is.numeric)]
+numeric_columns <- names(subset)[sapply(subset, is.numeric)]
 
 # Replace missing values with the median for numeric columns
-#for (col in numeric_columns) {
-#  subset[is.na(subset[[col]]), (col) := median(subset[[col]], na.rm = TRUE)]
-#}
+for (col in numeric_columns) {
+  subset[is.na(subset[[col]]), (col) := median(subset[[col]], na.rm = TRUE)]
+}
 
 # Identify character columns
-#character_columns <- names(subset)[sapply(subset, is.character)]
+character_columns <- names(subset)[sapply(subset, is.character)]
 
 # Impute missing values with random sampling from existing values for character columns
 #library(dplyr)
 
 # Impute missing values in character columns
 
-#for (col in character_columns) {
+for (col in character_columns) {
   # Find the non-missing values in the column
-#  non_missing_values <- na.omit(subset$col)
+  non_missing_values <- na.omit(subset$col)
   
   # If there are missing values in the column
-#  if (length(non_missing_values) > 0) {
+  if (length(non_missing_values) > 0) {
     # Impute the missing values with a random sample of the non-missing values
-#    imputed_values <- sample_frac(non_missing_values, 1, replace = TRUE)
+    imputed_values <- sample_frac(non_missing_values, 1, replace = TRUE)
     
     # Mutate the subset to replace the missing values
-#    subset <- mutate(subset, col = replace_na(col, imputed_values))
-#  }
-#}
+    subset <- mutate(subset, col = replace_na(col, imputed_values))
+  }
+}
 
 
-# Aplico Random Forest para clustering 
+# Aplico Random Forest para clustering
+subset.roughfix <- na.roughfix(subset)
 rf.fit <- randomForest(x = subset, y = NULL, ntree = 1000, proximity = TRUE, oob.prox = TRUE,na.action=na.roughfix)
 hclust.rf <- hclust(as.dist(1-rf.fit$proximity), method = "ward.D2")
 rf.cluster = cutree(hclust.rf, k=7)
