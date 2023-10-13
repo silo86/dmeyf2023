@@ -16,12 +16,12 @@ library(dplyr)
 # defino los parametros de la corrida, en una lista, la variable global  PARAM
 #  muy pronto esto se leera desde un archivo formato .yaml
 PARAM <- list()
-PARAM$experimento <- "custom_KA5240_lag_seis"
+PARAM$experimento <- "custom_KA5240_delta_lag6"
 
 PARAM$input$dataset <- "./datasets/competencia_02.csv.gz"
 
 
-PARAM$input$training <- c(202101, 202102, 202103, 202104, 202105) # meses donde se entrena el modelo
+PARAM$input$training <- c(202008,202009,202010,202011,202012,202101, 202102, 202103, 202104, 202105) # meses donde se entrena el modelo
 PARAM$input$future <- c(202107) # meses donde se aplica el modelo
 
 PARAM$finalmodel$semilla <- 100019
@@ -80,7 +80,9 @@ dataset <- dataset %>%
   mutate(across(all_of(lagged_columns),
   list(Lag1 = ~lag(.x, 1), Lag2 = ~lag(.x, 2), Lag3 = ~lag(.x, 3), Lag4 = ~lag(.x, 4), Lag5 = ~lag(.x, 5), Lag6 = ~lag(.x, 6)), .names="lagged_{.col}_Lag{.fn}")) 
 
-
+# Calcula los delta lags para todas las columnas que comienzan con "lagged_"
+dataset <- dataset %>%
+  mutate(across(starts_with("lagged_"), .fns = list(Delta = ~. - lag(.)), .names = "delta_{.col}_{.fn}"))
 
 #--------------------------------------
 
@@ -193,7 +195,6 @@ for (envios in cortes) {
 }
 
 cat("\n\nLa generacion de los archivos para Kaggle ha terminado\n")
-
 
 
 
