@@ -46,13 +46,14 @@ setwd("/Users/andres/Desktop/master/DM_EyF")
 
 dataset <- fread(PARAM$input$dataset, stringsAsFactors = TRUE)
 subset <- dataset[dataset$clase_ternaria == "BAJA+2", ]
+subset <- subset[, !("clase_ternaria"), with = FALSE]
 subset <- subset[!duplicated(subset$numero_de_cliente), ]
 # Convierte las columnas de fecha a objetos Date
-dataset$fecha_mes <- as.Date(dataset$fecha_mes, format = "%Y-%m")
-subset$fecha_mes <- as.Date(subset$fecha_mes, format = "%Y-%m")
+dataset$foto_mes <- as.Date(dataset$foto_mes, format = "%Y-%m")
+subset$foto_mes <- as.Date(subset$foto_mes, format = "%Y-%m")
 
 dataset_2 <- dataset %>%
-  filter(numero_de_cliente %in% subset$numero_de_cliente & fecha_mes <= subset$fecha_mes)
+  filter(numero_de_cliente %in% subset$numero_de_cliente & foto_mes <= subset$foto_mes)
 
 
 
@@ -98,6 +99,7 @@ hclust.rf <- hclust(as.dist(1-rf.fit$proximity), method = "ward.D2")
 rf.cluster = cutree(hclust.rf, k=7)
 # merge with subset
 dataset_1 <- cbind(subset, rf.cluster)
+
 
 fwrite(dataset_1, file = "dataset_1.csv", sep = ",")
 
