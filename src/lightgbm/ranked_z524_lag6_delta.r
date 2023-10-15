@@ -16,7 +16,7 @@ library(dplyr)
 # defino los parametros de la corrida, en una lista, la variable global  PARAM
 #  muy pronto esto se leera desde un archivo formato .yaml
 PARAM <- list()
-PARAM$experimento <- "custom_KA5240_delta_lag6"
+PARAM$experimento <- "ranked_KA5240_delta_lag6"
 
 PARAM$input$dataset <- "./datasets/competencia_02.csv.gz"
 
