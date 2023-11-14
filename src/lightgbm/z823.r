@@ -32,15 +32,15 @@ options(error = function() {
 #  muy pronto esto se leera desde un archivo formato .yaml
 PARAM <- list()
 
-PARAM$experimento <- "HT8230"
+PARAM$experimento <- "BO5seed"
 
-PARAM$input$dataset <- "./datasets/competencia_02.csv.gz"
+PARAM$input$dataset <- "./datasets/dataset_exp.csv.gz"
 
 # los meses en los que vamos a entrenar
 #  mucha magia emerger de esta eleccion
-PARAM$input$testing <- c(202105)
-PARAM$input$validation <- c(202104)
-PARAM$input$training <- c(202010, 202011, 202012, 202101, 202102, 202103)
+PARAM$input$testing <- c(202106)
+PARAM$input$validation <- c(202105)
+PARAM$input$training <- c(202011, 202012, 202101, 202102, 202103, 202104)
 
 # un undersampling de 0.1  toma solo el 10% de los CONTINUA
 PARAM$trainingstrategy$undersampling <- 1.0
@@ -90,7 +90,7 @@ PARAM$lgb_basicos <- list(
 # Aqui se cargan los hiperparametros que se optimizan
 #  en la Bayesian Optimization
 PARAM$bo_lgb <- makeParamSet(
-  makeNumericParam("learning_rate", lower = 0.02, upper = 0.3),
+  makeNumericParam("learning_rate", lower = 0.7, upper = 1),
   makeNumericParam("feature_fraction", lower = 0.01, upper = 1.0),
   makeIntegerParam("num_leaves", lower = 8L, upper = 1024L),
   makeIntegerParam("min_data_in_leaf", lower = 100L, upper = 50000L)
