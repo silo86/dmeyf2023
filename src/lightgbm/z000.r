@@ -33,13 +33,15 @@ PARAM$experimento <- "EC9010"
 
 #PARAM$input$dataset <- "~/buckets/b1/datasets/competencia_03_fe_ec.csv.gz"
 PARAM$input$dataset <- "./datasets/dataset_exp.csv.gz"
+
 PARAM$input$testing <- c(202107)
 
 PARAM$hyperparametertuning$POS_ganancia <- 273000
 PARAM$hyperparametertuning$NEG_ganancia <- -7000
 
 # Aqui empieza el programa
-setwd(paste0("~/buckets/b1/exp/", PARAM$experimento))
+#setwd(paste0("~/buckets/b1/exp/", PARAM$experimento))
+setwd("~/buckets/b1")
 
 # cargo el dataset donde voy a entrenar
 dataset <- fread(PARAM$input$dataset, stringsAsFactors = TRUE)
