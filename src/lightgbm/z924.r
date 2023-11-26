@@ -17,7 +17,7 @@ require("data.table")
 require("lightgbm")
 
 meses <- c(201912, 202001, 202002, 202003, 202004, 202005, 202006, 202007,
-           202008, 202009, 202010, 202011, 202012, 202101, 202102, 202103, 202104, 202105)
+           202008, 202009, 202010, 202011, 202012, 202101, 202102, 202103, 202104, 202105, 202106, 202107)
 
 # defino los parametros de la corrida, en una lista, la variable global  PARAM
 #  muy pronto esto se leera desde un archivo formato .yaml
@@ -27,14 +27,14 @@ mis_semillas <- c(594697, 594709, 594721, 594739, 594749,
                   161729, 221729, 202789, 700241, 991107)
 
 PARAM <- list()
-PARAM$experimento <- "EC9010"
+PARAM$experimento <- "Z924"
 
 PARAM$input$dataset <- "./datasets/dataset_exp.csv.gz"
 
 # meses donde se entrena el modelo
-#PARAM$input$training <- c(202012, 202101, 202102, 202103, 202104, 202105)
-PARAM$input$training <- c(202012,202101,202102,202103,202104,202105)
-PARAM$input$future <- c(202107) # meses donde se aplica el modelo
+PARAM$input$training <- meses
+#PARAM$input$training <- c(202012,202101,202102,202103,202104,202105)
+PARAM$input$future <- c(202109) # meses donde se aplica el modelo
 
 #PARAM$finalmodel$semilla <- mis_semillas[1]
 
